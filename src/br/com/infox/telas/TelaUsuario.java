@@ -42,6 +42,10 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                 txtUsuSenha.setText(rs.getString(5));
                 // quando é um combo box muda um pouco o codigo para chamar do banco
                 cboUsuPerfil.setSelectedItem(rs.getString(6));
+                txtUsuSenha.setBackground(Color.white);
+                txtUsuLogin.setBackground(Color.white);
+                txtUsuNome.setBackground(Color.white);
+                txtUsuId.setBackground(Color.white);
 
             } else {
                 // as linhas abaixo "Limpam os campos e mostra uma mensagem"
@@ -120,6 +124,96 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, e);
         }
 
+    }
+
+    // criando o metodo para alterar dados do usuário
+    private void alterar() {
+        String sql = "update tbusuarios set usuario =?, fone=?, login=?, senha=?, perfil=? where iduser=?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, txtUsuNome.getText());
+            pst.setString(2, txtUsuFone.getText());
+            pst.setString(3, txtUsuLogin.getText());
+            pst.setString(4, txtUsuSenha.getText());
+            pst.setString(5, cboUsuPerfil.getSelectedItem().toString());
+            pst.setString(6, txtUsuId.getText());
+
+            // validaçao dos campos obrigatórios
+            if ((txtUsuId.getText().isEmpty()) || (txtUsuNome.getText().isEmpty()) || (txtUsuLogin.getText().isEmpty()) || (txtUsuSenha.getText().isEmpty())) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios ");
+                // as estruturas abaixo modificam a cor da caixa de texto caso ela não tenha nada escrito
+                if (txtUsuId.getText().isEmpty()) {
+                    txtUsuId.setBackground(Color.red);
+                } else {
+                    txtUsuId.setBackground(Color.white);
+                }
+                if (txtUsuNome.getText().isEmpty()) {
+                    txtUsuNome.setBackground(Color.red);
+                } else {
+                    txtUsuNome.setBackground(Color.white);
+                }
+                if (txtUsuLogin.getText().isEmpty()) {
+                    txtUsuLogin.setBackground(Color.red);
+                } else {
+                    txtUsuLogin.setBackground(Color.white);
+                }
+                if (txtUsuSenha.getText().isEmpty()) {
+                    txtUsuSenha.setBackground(Color.red);
+                } else {
+                    txtUsuSenha.setBackground(Color.white);
+                }
+
+            } else {
+
+                // a linha abaixo atualiza a tabela de usuarios com os dados formulario
+                // a estrutura abaixo é usada para confirmar a inserção dos dados na tabela
+                int adicionado = pst.executeUpdate();
+                // a linha abaixo serve de apoio ao entendimento a logioca
+                // System.out.println(adicionado);
+                if (adicionado > 0) {
+                    JOptionPane.showMessageDialog(null, "Dados do usuário alterados com sucesso");
+                    txtUsuId.setText(null);
+                    txtUsuNome.setText(null);
+                    txtUsuFone.setText(null);
+                    txtUsuLogin.setText(null);
+                    txtUsuSenha.setText(null);
+                    txtUsuSenha.setBackground(Color.white);
+                    txtUsuLogin.setBackground(Color.white);
+                    txtUsuNome.setBackground(Color.white);
+                    txtUsuId.setBackground(Color.white);
+
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+    }
+
+    //criando metodo para deletar dados
+    private void deleta() {
+        String sql = "delete from tbusuarios where iduser=?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, txtUsuId.getText());
+            int deletar = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja deletar esse regitro?", "Atenção", JOptionPane.YES_NO_OPTION);
+            if (deletar == JOptionPane.YES_OPTION) {
+                pst.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Usuário deletado com sucesso");
+                txtUsuId.setText(null);
+                txtUsuNome.setText(null);
+                txtUsuFone.setText(null);
+                txtUsuLogin.setText(null);
+                txtUsuSenha.setText(null);
+                txtUsuSenha.setBackground(Color.white);
+                txtUsuLogin.setBackground(Color.white);
+                txtUsuNome.setBackground(Color.white);
+                txtUsuId.setBackground(Color.white);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -205,11 +299,21 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         btnUsuUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/update.png"))); // NOI18N
         btnUsuUpdate.setToolTipText("Atualizar");
         btnUsuUpdate.setPreferredSize(new java.awt.Dimension(80, 80));
+        btnUsuUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuUpdateActionPerformed(evt);
+            }
+        });
 
         btnUsuDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/delete.png"))); // NOI18N
         btnUsuDelete.setToolTipText("Apagar");
         btnUsuDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUsuDelete.setPreferredSize(new java.awt.Dimension(80, 80));
+        btnUsuDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuDeleteActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("* Campos Obrigatórios");
 
@@ -332,6 +436,17 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         // chamando o metodo adicionar
         adicionar();
     }//GEN-LAST:event_btnUsuCreateActionPerformed
+
+    private void btnUsuUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuUpdateActionPerformed
+        // Chamando o metodo alterar
+        alterar();
+    }//GEN-LAST:event_btnUsuUpdateActionPerformed
+
+    private void btnUsuDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuDeleteActionPerformed
+        // chamando comando deleta
+        deleta();
+
+    }//GEN-LAST:event_btnUsuDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
