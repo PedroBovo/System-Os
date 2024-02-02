@@ -8,6 +8,7 @@ package br.com.infox.telas;
 import java.sql.*;
 import br.com.infox.dal.ModuloConexao;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 public class TelaUsuario extends javax.swing.JInternalFrame {
@@ -49,10 +50,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
 
             } else {
                 // as linhas abaixo "Limpam os campos e mostra uma mensagem"
-                txtUsuNome.setText(null);
-                txtUsuFone.setText(null);
-                txtUsuLogin.setText(null);
-                txtUsuSenha.setText(null);
+                limpar();
                 JOptionPane.showMessageDialog(null, "Usuário não cadatrado");
             }
         } catch (Exception e) {
@@ -107,15 +105,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                 // System.out.println(adicionado);
                 if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso");
-                    txtUsuId.setText(null);
-                    txtUsuNome.setText(null);
-                    txtUsuFone.setText(null);
-                    txtUsuLogin.setText(null);
-                    txtUsuSenha.setText(null);
-                    txtUsuSenha.setBackground(Color.white);
-                    txtUsuLogin.setBackground(Color.white);
-                    txtUsuNome.setBackground(Color.white);
-                    txtUsuId.setBackground(Color.white);
+                    limpar();
 
                 }
             }
@@ -172,15 +162,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                 // System.out.println(adicionado);
                 if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "Dados do usuário alterados com sucesso");
-                    txtUsuId.setText(null);
-                    txtUsuNome.setText(null);
-                    txtUsuFone.setText(null);
-                    txtUsuLogin.setText(null);
-                    txtUsuSenha.setText(null);
-                    txtUsuSenha.setBackground(Color.white);
-                    txtUsuLogin.setBackground(Color.white);
-                    txtUsuNome.setBackground(Color.white);
-                    txtUsuId.setBackground(Color.white);
+                    limpar();
 
                 }
             }
@@ -200,20 +182,24 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             if (deletar == JOptionPane.YES_OPTION) {
                 pst.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Usuário deletado com sucesso");
-                txtUsuId.setText(null);
-                txtUsuNome.setText(null);
-                txtUsuFone.setText(null);
-                txtUsuLogin.setText(null);
-                txtUsuSenha.setText(null);
-                txtUsuSenha.setBackground(Color.white);
-                txtUsuLogin.setBackground(Color.white);
-                txtUsuNome.setBackground(Color.white);
-                txtUsuId.setBackground(Color.white);
+                limpar();
             }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+    }
+
+    public void limpar() {
+        txtUsuId.setText(null);
+        txtUsuNome.setText(null);
+        txtUsuFone.setText(null);
+        txtUsuLogin.setText(null);
+        txtUsuSenha.setText(null);
+        txtUsuSenha.setBackground(Color.white);
+        txtUsuLogin.setBackground(Color.white);
+        txtUsuNome.setBackground(Color.white);
+        txtUsuId.setBackground(Color.white);
     }
 
     @SuppressWarnings("unchecked")
@@ -260,10 +246,26 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
                 txtUsuIdActionPerformed(evt);
             }
         });
+        txtUsuId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsuIdKeyPressed(evt);
+            }
+        });
 
         txtUsuNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUsuNomeActionPerformed(evt);
+            }
+        });
+        txtUsuNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsuNomeKeyPressed(evt);
+            }
+        });
+
+        txtUsuLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsuLoginKeyPressed(evt);
             }
         });
 
@@ -275,6 +277,12 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         });
 
         jLabel7.setText("Fone");
+
+        txtUsuFone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsuFoneKeyPressed(evt);
+            }
+        });
 
         btnUsuCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/create.png"))); // NOI18N
         btnUsuCreate.setToolTipText("Adicionar");
@@ -447,6 +455,34 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         deleta();
 
     }//GEN-LAST:event_btnUsuDeleteActionPerformed
+
+    private void txtUsuIdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuIdKeyPressed
+        // vai para a a proxima caixa de texto com o enter
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtUsuNome.requestFocus();
+        }
+    }//GEN-LAST:event_txtUsuIdKeyPressed
+
+    private void txtUsuNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuNomeKeyPressed
+        // vai para a a proxima caixa de texto com o enter
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtUsuFone.requestFocus();
+        }
+    }//GEN-LAST:event_txtUsuNomeKeyPressed
+
+    private void txtUsuFoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuFoneKeyPressed
+        // vai para a a proxima caixa de texto com o enter
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtUsuLogin.requestFocus();
+        }
+    }//GEN-LAST:event_txtUsuFoneKeyPressed
+
+    private void txtUsuLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuLoginKeyPressed
+        // vai para a a proxima caixa de texto com o enter
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtUsuSenha.requestFocus();
+        }
+    }//GEN-LAST:event_txtUsuLoginKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
