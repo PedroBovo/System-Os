@@ -73,7 +73,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
     }
 
     // metodo para adicionar clientes pelo nome com filtro
-    public void pesquisar() {
+    private void pesquisar() {
         String sql = "select idcli as Id, nomecli as Nome, endcli as Endereço, fonecli as Telefone, emailcli as Email from tbclientes where nomecli like ? ";
         try {
             pst = conexao.prepareStatement(sql);
@@ -90,7 +90,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
     }
 
     // metodo para setar os campos do formulario com o conteudo da tabela
-    public void setar_campos() {
+    private void setar_campos() {
         int setar = tblClientes.getSelectedRow();
         txtCliId.setText(tblClientes.getModel().getValueAt(setar, 0).toString());
         txtCliNome.setText(tblClientes.getModel().getValueAt(setar, 1).toString());
@@ -104,7 +104,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
     }
 
     // metodo para alterar cadastro de clientes
-    public void alterar() {
+    private void alterar() {
         String sql = "update tbclientes set nomecli =?, endcli=?, fonecli =?, emailcli=? where idcli =?";
         try {
             pst = conexao.prepareStatement(sql);
@@ -140,7 +140,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         }
     }
 
-    public void deleta() {
+    private void deleta() {
         String sql = "delete from tbclientes where idcli = ?";
         try {
             pst = conexao.prepareStatement(sql);
@@ -158,7 +158,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         }
     }
 
-    public void limpar() {
+    private void limpar() {
         txtCliPesquisar.setText(null);
         txtCliId.setText(null);
         txtCliNome.setText(null);
@@ -330,7 +330,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(75, Short.MAX_VALUE))
+                        .addContainerGap(25, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtCliPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -356,9 +356,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
                 .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtCliNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1)))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -372,14 +370,14 @@ public class TelaClientes extends javax.swing.JInternalFrame {
                     .addComponent(jLabel10)
                     .addComponent(txtCliEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAlterar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        pack();
+        setBounds(0, 0, 640, 480);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
