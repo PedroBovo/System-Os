@@ -50,7 +50,14 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
 
             } else {
                 // as linhas abaixo "Limpam os campos e mostra uma mensagem"
-                limpar();
+                txtUsuNome.setText(null);
+                txtUsuFone.setText(null);
+                txtUsuLogin.setText(null);
+                txtUsuSenha.setText(null);
+                txtUsuSenha.setBackground(Color.white);
+                txtUsuLogin.setBackground(Color.white);
+                txtUsuNome.setBackground(Color.white);
+                txtUsuId.setBackground(Color.white);
                 JOptionPane.showMessageDialog(null, "Usuário não cadatrado");
             }
         } catch (Exception e) {

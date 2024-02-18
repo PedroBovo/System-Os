@@ -147,6 +147,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
             pst.setString(1, txtCliId.getText());
             int deletar = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja deletar esse regitro?", "Atenção", JOptionPane.YES_NO_OPTION);
             if (deletar == JOptionPane.YES_OPTION) {
+                
                 pst.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Usuário deletado com sucesso");
                 limpar();
@@ -154,7 +155,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
 
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Não é possivel deletar esse cliente pois ele tem algum serviço em espera!!");
         }
     }
 
